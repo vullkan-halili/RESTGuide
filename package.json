@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint \"./src/**/*.js\"",
+    "test:modules": "NODE_ENV=test mocha --require @babel/register --timeout 30000 --exit \"./src/app/modules/**/*.test.js*\"",
     "test": "cross-env NODE_ENV=test nyc mocha --require @babel/register --timeout 30000 --exit \"./src/**/*.test.js*\"",
     "test:only": "cross-env NODE_ENV=test mocha --timeout 30000 --exit --require @babel/register $1",
     "test:ci": "npm run lint && npm run test",
@@ -67,6 +68,7 @@
     "@babel/register": "^7.12.1",
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
     "eslint": "^7.12.1",
     "eslint-plugin-import": "^2.22.1",

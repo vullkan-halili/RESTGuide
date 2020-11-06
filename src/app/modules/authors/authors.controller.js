@@ -1,6 +1,7 @@
 import Author from '../../models/author';
 import Book from '../../models/book';
 import errors from '../../constants/errors';
+import { createAuthor as addAuthor } from './services';
 import {
   InternalError,
   UnprocessableEntity,
@@ -10,6 +11,16 @@ import {
 /**
  * Create author
  */
+
+export async function createAuthorController(req, res, next) {
+  const authorInfo = req.body;
+  try {
+    const author = await addAuthor(authorInfo);
+    res.status(201).json(author);
+  } catch (e) {
+    next(new InternalError(e));
+  }
+}
 
 export const createAuthor = async (req, res, next) => {
   try {
