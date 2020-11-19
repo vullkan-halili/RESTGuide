@@ -1,15 +1,13 @@
-/* eslint-disable valid-jsdoc */
-/* eslint-disable require-await */
 import errors from "../../../constants/errors";
 import { UnprocessableEntity } from "../../../utils/error";
 import { makeAuthor } from "../entities";
 
 /**
  * Create author service.
- * @param {Object} Author - Author Model (better option would be a repository.).
+ * @param {Object} authorRepository - Author Repository object.
  * @returns {Function} - Create author function
  */
-export default function makeCreateAuthor({ Author }) {
+export default function makeCreateAuthor({ authorRepository }) {
   return async function createAuthor(authorInfo) {
     const author = makeAuthor(authorInfo);
 
@@ -18,26 +16,16 @@ export default function makeCreateAuthor({ Author }) {
       lastName: author.getLastName(),
     });
 
-    return saveAuthor(author);
+    return authorRepository.insert(author);
   };
 
   async function validateExistingAuthor({ firstName, lastName }) {
-    const existingAuthor = await Author.findOne({
+    const existingAuthor = await authorRepository.findOne({
       firstName,
       lastName,
     });
     if (existingAuthor) {
       throw new UnprocessableEntity(errors.AUTHOR_EXISTS);
     }
-  }
-
-  async function saveAuthor(author) {
-    const authorModel = new Author(
-      author.getFirstName(),
-      author.getLastName(),
-      author.getGenres(),
-    );
-
-    return authorModel.save();
   }
 }

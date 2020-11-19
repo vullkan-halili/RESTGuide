@@ -1,4 +1,4 @@
-import { NotAuthorized } from '../../utils/error';
+import { NotAuthorized } from '../../../../../utils/error';
 
 /**
  * Checks whether the user is an admin to create/update/delete authors

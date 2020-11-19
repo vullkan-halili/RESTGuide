@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { BadRequest } from '../../../utils/error';
 import buildMakeAuthor from './author.entity';
 
-describe('author', () => {
+describe('author entity', () => {
   const makeAuthor = buildMakeAuthor();
 
   it('must have a first name', () => {

@@ -4,6 +4,10 @@ import { readdirSync, lstatSync } from 'fs';
 
 import healthRouter from './health';
 
+// import routes from authors model which 
+// implements clean architecture principles.
+import authorRoutes from '../modules/authors/infrastructure/expressServer/router';
+
 const router = new Router();
 
 router.use(healthRouter);
@@ -27,5 +31,7 @@ modulesDirContent.forEach((item) => {
     }
   }
 });
+
+router.use(authorRoutes);
 
 export default router;
